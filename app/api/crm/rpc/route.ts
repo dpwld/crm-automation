@@ -1,0 +1,12 @@
+import {readJson} from '@/lib/http';
+import {ApiError,checkOrigin,failure,identity} from '@/lib/server/auth';
+import {database,nextCounter,put,rows,writeStatement} from '@/lib/server/store';
+export async function POST(request:Request){try{checkOrigin(request);const user=await identity(),owner=user.userId,{name,args={}}=await readJson(request);let data:unknown;
+ if(name==='next_scoped_doc_no'){const prefix=String(args.p_prefix||'').toUpperCase(),scope=String(args.p_scope||'').toUpperCase();if(!/^[A-Z][A-Z-]{0,12}$/.test(prefix)||!(/^[A-Z]{3}$/.test(scope)||scope==='D'))throw new ApiError('Invalid document prefix or scope.');const year=new Date().getFullYear();data=`${prefix}-${scope}-${year}-${String(await nextCounter(owner,`${prefix}|${scope}`,year)).padStart(3,'0')}`;}
+ else if(name==='next_deal_no'){data=`D-${new Date().getFullYear()}-${String(await nextCounter(owner,'DEAL')).padStart(4,'0')}`;}
+ else if(name==='next_registry_serial'){data=await nextCounter(owner,'PART');}
+ else if(name==='crm_company_favorites'){data=(await rows(owner,'company_favorites')).map(r=>r.company_id);}
+ else if(name==='crm_company_favorite_set'){const company=(await rows(owner,'companies')).find(c=>c.id===args.p_company);if(!company)throw new ApiError('Company not found.',404);if(typeof args.p_favorite!=='boolean')throw new ApiError('Invalid favorite.');if(args.p_favorite)await put(owner,'company_favorites',{id:company.id,company_id:company.id});else await database().prepare('DELETE FROM crm_records WHERE owner=? AND entity=? AND id=?').bind(owner,'company_favorites',company.id).run();data=null;}
+ else if(name==='replace_po_parts'){const po=(await rows(owner,'vendor_pos')).find(p=>p.id===args.target_po_id);if(!po)throw new ApiError('Purchase order not found.',404);if(!Array.isArray(args.selected_part_ids)||args.selected_part_ids.length>100)throw new ApiError('Invalid part list.');const parts=await rows(owner,'registry_parts');for(const id of args.selected_part_ids)if(!parts.some(p=>p.id===id))throw new ApiError('Part not found.',404);await database().batch([database().prepare("DELETE FROM crm_records WHERE owner=? AND entity='po_parts' AND json_extract(payload,'$.po_id')=?").bind(owner,po.id),...args.selected_part_ids.map((id:string)=>writeStatement(owner,'po_parts',{id:crypto.randomUUID(),po_id:po.id,part_id:id}))]);data=null;}
+ else throw new ApiError('Unknown CRM operation.',404);
+ return Response.json({data});}catch(error){return failure(error);}}

@@ -1,0 +1,7 @@
+import {readJson} from '@/lib/http';
+import {ApiError,checkOrigin,failure,identity} from '@/lib/server/auth';
+import {rows} from '@/lib/server/store';
+import {aiJson} from '@/lib/server/integrations';
+const steps=['targeting','first_contact','nda','spec','quotation','purchase_order','invoice'];
+const schema={type:'object',additionalProperties:false,properties:{step:{type:'string',enum:steps},reason:{type:'string'},entryText:{type:'string'},nextAction:{type:'string'}},required:['step','reason','entryText','nextAction']};
+export async function POST(request:Request){try{checkOrigin(request);const user=await identity(),body=await readJson(request),row=(await rows(user.userId,'crm_emails')).find(r=>r.id===body.emailId);if(!row)throw new ApiError('Email not found.',404);const company=(await rows(user.userId,'companies')).find(r=>r.id===row.company_id),deals=(await rows(user.userId,'deals')).filter(r=>r.company_id===row.company_id);const result=await aiJson(user.userId,'email_step','Route one customer email to the correct seven-step sales process. targeting is pre-outreach research; first_contact is early conversation; nda is confidentiality review; spec is technical requirements; quotation is pricing; purchase_order is customer commitment; invoice is billing. Return one factual reason, an entryText draft, and one nextAction or empty string. Never invent facts. Nothing is automatically applied.',{email:row,company,deals},schema);return Response.json(result);}catch(error){return failure(error);}}

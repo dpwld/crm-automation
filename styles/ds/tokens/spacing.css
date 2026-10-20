@@ -1,0 +1,33 @@
+
+
+:root {
+  --space-0:  0;
+  --space-1:  2px;
+  --space-2:  4px;
+  --space-3:  8px;
+  --space-4:  12px;
+  --space-5:  16px;
+  --space-6:  20px;
+  --space-7:  24px;
+  --space-8:  32px;
+  --space-9:  40px;
+  --space-10: 48px;
+  --space-11: 64px;
+  --space-12: 80px;
+
+  
+  --control-sm: 30px;
+  --control-md: 36px;
+  --control-lg: 44px;   
+
+  
+  --sidenav-width: 248px;
+  --sidenav-collapsed: 64px;
+  --topbar-height: 60px;
+  --container-max: 1440px;
+
+  
+  --row-height-compact: 40px;
+  --row-height-default: 48px;
+  --row-height-relaxed: 56px;
+}

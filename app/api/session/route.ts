@@ -1,0 +1,4 @@
+import {failure,identity} from '@/lib/server/auth';
+import {SPEC_SCHEMA_KEY} from '@/lib/crm/specSchema';
+import {rows} from '@/lib/server/store';
+export async function GET(){try{const auth=await identity();const org=(await rows(auth.userId,'org_settings'))[0]||null,directory=await rows(auth.userId,'profiles');const specSchema=(await rows(auth.userId,'app_settings')).find(r=>r.key===SPEC_SCHEMA_KEY)?.value||null;return Response.json({specSchema,user:{id:auth.userId,email:auth.email,fullName:auth.displayName,title:'',team:'exec',role:'admin',avatarUrl:null},org,members:directory,integrations:{ai:!!process.env.OPENAI_API_KEY&&!!process.env.OPENAI_MODEL,email:!!process.env.GMAIL_ACCESS_TOKEN&&!!process.env.GMAIL_SENDER_EMAIL}},{headers:{'Cache-Control':'no-store'}});}catch(error){return failure(error);}}

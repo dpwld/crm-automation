@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readFile,access} from 'node:fs/promises';
+import {localOrigin,fixtureRecords} from '../scripts/readme-fixtures.mjs';
+for(const path of ['app/engineering/page.tsx','app/procurement/page.tsx','app/docs/page.tsx','app/nda/page.tsx','app/api/engineering/studio-requests/route.ts','app/api/procurement/intake/route.ts','components/Engineering.tsx','components/NdaTools.tsx'])await assert.rejects(access(path));
+for(const path of ['components/crm/NdaPanel.tsx','components/crm/EngineeringPanel.tsx','components/crm/ProcurementPanel.tsx','components/engineering/PartBuilderModal.tsx','app/sign/page.tsx','app/api/nda/requests/route.ts'])await access(path);
+const shell=await readFile('components/Workspace.tsx','utf8');assert(!shell.includes('workspace-nav'));assert(shell.includes('<CrmWorkspace/>'));assert(shell.includes('CRM settings'));
+const deps=JSON.parse(await readFile('package.json','utf8')).dependencies;for(const dep of ['three','pdfjs-dist','docx-preview','jszip'])assert(!deps[dep]);
+for(const url of ['https://127.0.0.1:4323','http://127.0.0.1:4324','http://example.com:4323','http://localhost.example.com:4323','http://localhost:4323/evil','http://user@localhost:4323','http://localhost:4323?x=1'])assert.throws(()=>localOrigin(url));
+assert.equal(localOrigin('http://127.0.0.1:4323'),'http://127.0.0.1:4323');
+const manifest=fixtureRecords(),ids=manifest.flatMap(([,rows])=>rows.map(row=>row.id));assert.equal(ids.length,new Set(ids).size);assert(ids.every(id=>id.startsWith('readme-crm--')));assert.equal(manifest.find(([table])=>table==='companies')[1].length,8);assert.equal(manifest.find(([table])=>table==='deals')[1].length,5);
+console.log('CRM boundary and local fixture safety checks passed.');

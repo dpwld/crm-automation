@@ -1,0 +1,5 @@
+import {readJson} from '@/lib/http';
+import {ApiError,checkOrigin,failure,identity} from '@/lib/server/auth';
+import {aiJson} from '@/lib/server/integrations';
+const schema={type:'object',additionalProperties:false,properties:{partyBName:{type:'string'},partyBEntity:{type:'string'},partyBAddress:{type:'string'},purpose:{type:'string'},reviewNotes:{type:'array',items:{type:'string'}}},required:['partyBName','partyBEntity','partyBAddress','purpose','reviewNotes']};
+export async function POST(request:Request){try{checkOrigin(request);const user=await identity(),body=await readJson(request);if(typeof body.purpose!=='string'||!body.purpose.trim())throw new ApiError('Describe the NDA purpose.');return Response.json(await aiJson(user.userId,'nda_fields','Fill NDA counterparty details from the supplied facts. Return legal name exactly as supplied; entity description and address only if supplied; use [______________] for missing facts. Write a concise purpose fragment scoped to the described engagement. Do not invent names, addresses, jurisdictions or facts. The result is a draft for human review.',body,schema));}catch(error){return failure(error);}}

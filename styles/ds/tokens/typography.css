@@ -1,0 +1,111 @@
+
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Roboto Mono', Menlo, Consolas, monospace;
+
+  
+  --text-2xs: 11px;
+  --text-xs:  12px;
+  --text-sm:  13px;
+  --text-md:  14px;   
+  --text-lg:  16px;
+  --text-xl:  18px;
+  --text-2xl: 20px;
+  --text-3xl: 24px;
+  --text-4xl: 28px;
+  --text-5xl: 32px;
+  --text-6xl: 40px;
+
+  
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  
+  --leading-tight:   1.2;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+
+  
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.02em;
+}
+
+
+.sx-display {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-5xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-strong);
+}
+.sx-h1 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-strong);
+}
+.sx-h2 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-strong);
+}
+.sx-h3 {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--text-strong);
+}
+.sx-body {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--text-default);
+}
+.sx-label {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: var(--text-default);
+}
+.sx-caption {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-xs);
+  line-height: var(--leading-snug);
+  color: var(--text-muted);
+}
+.sx-overline {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-2xs);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.sx-mono {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-normal);
+  color: var(--text-default);
+}
+.sx-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'cv01' 1;
+}

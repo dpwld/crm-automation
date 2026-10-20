@@ -1,0 +1,262 @@
+{
+  "activities": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    }
+  },
+  "app_settings": {},
+  "build_files": {
+    "build_id": {
+      "target": "builds",
+      "onDelete": "cascade"
+    }
+  },
+  "builds": {
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    },
+    "source_spec_version_id": {
+      "target": "spec_versions",
+      "onDelete": "set null"
+    },
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    }
+  },
+  "catalog_items": {},
+  "change_requests": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    }
+  },
+  "comment_reactions": {
+    "comment_id": {
+      "target": "comments",
+      "onDelete": "cascade"
+    }
+  },
+  "comments": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    },
+    "parent_id": {
+      "target": "comments",
+      "onDelete": "cascade"
+    }
+  },
+  "companies": {
+    "nda_doc_id": {
+      "target": "doc_items",
+      "onDelete": "set null"
+    }
+  },
+  "company_documents": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    },
+    "revision_of": {
+      "target": "company_documents",
+      "onDelete": "set null"
+    },
+    "linked_doc_id": {
+      "target": "company_documents",
+      "onDelete": "set null"
+    },
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    }
+  },
+  "company_specs": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    }
+  },
+  "contact_logs": {
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    },
+    "contact_id": {
+      "target": "customer_contacts",
+      "onDelete": "cascade"
+    }
+  },
+  "crm_emails": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    },
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    }
+  },
+  "crm_followups": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    },
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    }
+  },
+  "customer_contacts": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    }
+  },
+  "deal_experiments": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    },
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "cascade"
+    }
+  },
+  "deal_parts": {
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "cascade"
+    },
+    "part_id": {
+      "target": "registry_parts",
+      "onDelete": "cascade"
+    }
+  },
+  "deals": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "set null"
+    }
+  },
+  "doc_counters": {},
+  "doc_items": {},
+  "docs": {},
+  "emoji_reactions": {},
+  "global_comments": {},
+  "notifications": {},
+  "org_settings": {},
+  "part_inspection_files": {
+    "part_id": {
+      "target": "parts",
+      "onDelete": "cascade"
+    }
+  },
+  "part_logs": {
+    "part_id": {
+      "target": "parts",
+      "onDelete": "cascade"
+    }
+  },
+  "parts": {
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    },
+    "location_vendor_id": {
+      "target": "vendors",
+      "onDelete": "set null"
+    },
+    "location_company_id": {
+      "target": "companies",
+      "onDelete": "set null"
+    },
+    "vendor_id": {
+      "target": "vendors",
+      "onDelete": "set null"
+    },
+    "build_id": {
+      "target": "builds",
+      "onDelete": "set null"
+    }
+  },
+  "po_parts": {
+    "po_id": {
+      "target": "vendor_pos",
+      "onDelete": "cascade"
+    },
+    "part_id": {
+      "target": "registry_parts",
+      "onDelete": "cascade"
+    }
+  },
+  "profiles": {},
+  "registry_parts": {},
+  "spec_builds": {
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    },
+    "company_id": {
+      "target": "companies",
+      "onDelete": "cascade"
+    }
+  },
+  "spec_versions": {
+    "build_id": {
+      "target": "spec_builds",
+      "onDelete": "cascade"
+    }
+  },
+  "tax_invoices": {},
+  "vendor_pos": {
+    "vendor_id": {
+      "target": "vendors",
+      "onDelete": "restrict"
+    },
+    "company_id": {
+      "target": "companies",
+      "onDelete": "set null"
+    },
+    "build_id": {
+      "target": "builds",
+      "onDelete": "set null"
+    },
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "set null"
+    }
+  },
+  "vendors": {},
+  "company_favorites": {},
+  "spec_requests": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "restrict"
+    },
+    "deal_id": {
+      "target": "deals",
+      "onDelete": "restrict"
+    },
+    "contact_id": {
+      "target": "customer_contacts",
+      "onDelete": "restrict"
+    },
+    "version_id": {
+      "target": "spec_versions",
+      "onDelete": "restrict"
+    }
+  },
+  "nda_requests": {
+    "company_id": {
+      "target": "companies",
+      "onDelete": "set null"
+    },
+    "final_doc_id": {
+      "target": "doc_items",
+      "onDelete": "set null"
+    }
+  }
+}

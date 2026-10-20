@@ -1,0 +1,10 @@
+import './sites-env.mjs';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+const root=process.cwd(),config=JSON.parse(readFileSync(path.join(root,'dist/server/wrangler.json'),'utf8'));
+config.main=path.join(root,'dist/server',config.main);
+config.assets.directory=path.resolve(root,'dist/server',config.assets.directory);
+config.d1_databases=config.d1_databases.map(database=>({...database,migrations_dir:path.join(root,'drizzle')}));
+mkdirSync('.sites-runtime',{recursive:true});const target=path.join(root,'.sites-runtime/local-wrangler.json');writeFileSync(target,JSON.stringify(config));
+const persist=process.argv[2]||'.wrangler/state';const result=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','d1','migrations','apply','DB','--local','--config',target,'--persist-to',persist],{stdio:'inherit'});process.exit(result.status??1);

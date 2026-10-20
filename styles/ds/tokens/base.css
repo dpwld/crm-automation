@@ -1,0 +1,39 @@
+
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  line-height: var(--leading-normal);
+  color: var(--text-default);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--blue-100); }
+
+a { color: var(--text-link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+
+.sx-scroll::-webkit-scrollbar { width: 10px; height: 10px; }
+.sx-scroll::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.sx-scroll::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+.sx-scroll::-webkit-scrollbar-track { background: transparent; }
+
+
+.sx-focusable:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+}
