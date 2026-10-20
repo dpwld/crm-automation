@@ -63,7 +63,7 @@ npm run setup
 npm run dev -- --port 4323
 ```
 
-Local setup needs no ChatGPT account or paid API keys. The repository is currently private, so cloning requires access. `npm run setup` builds the service and applies committed local migrations without seeding data. See [Installation](docs/INSTALLATION.md), [Self-hosting in your own Cloudflare account](docs/SELF-HOSTING.md), and [Contributing](CONTRIBUTING.md).
+Local setup needs no ChatGPT account or paid API keys. `npm run setup` builds the service and applies committed local migrations without seeding data. See [Installation](docs/INSTALLATION.md), [Self-hosting in your own Cloudflare account](docs/SELF-HOSTING.md), and [Contributing](CONTRIBUTING.md).
 
 
 The checked-in migrations can be applied directly; `db:generate` is needed after changing `db/schema.ts`. The local development server uses the starter’s loopback-only sign-in and Miniflare D1/R2 persistence under `.wrangler/state`. `npm start` runs the built Worker for gateway/integration verification. The Sites deployment pipeline provisions the declared bindings and applies migrations.
@@ -105,7 +105,7 @@ React/Vinext runs on Cloudflare Workers. D1 stores validated original-domain JSO
 
 The original Supabase data-function contracts remain in `lib/data`; their client now transports queries to owned D1 endpoints. No Supabase account or company backend is required. Business records are not stored in browser localStorage; panel sizes/pins/sort preferences may be stored locally.
 
-SheetJS 0.20.2 is retained from the original vetted vendor archive. Its package license and bundled third-party license notices remain with the dependency. Pretendard's font license is in `public/fonts/OFL.txt`. This repository is private and has no blanket open-source license pending ownership review.
+SheetJS 0.20.2 is retained from the original vetted vendor archive. Its package license and bundled third-party license notices remain with the dependency. Pretendard's font license is in `public/fonts/OFL.txt`. The repository is publicly viewable; no project-wide open-source license is granted. Third-party components retain their respective licenses.
 
 ## Verification
 
